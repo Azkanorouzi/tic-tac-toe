@@ -15,4 +15,32 @@
 html,
 body {
   height: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(255, 255, 255);
+}
+:root {
+  font-size: 52.5%;
+}
+/* 
+/////////////////
+    CSS BODY
+////////////////
+*/
+html {
+  background: rgb(1, 1, 57);
+}
+nav {
+  background: orangered;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.nav-title {
+  font-size: 4rem;
+}
+.nav-subtitle {
+  font-size: 2rem;
 }
