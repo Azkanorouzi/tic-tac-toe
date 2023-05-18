@@ -20,15 +20,28 @@ body {
 }
 :root {
   font-size: 52.5%;
+  --gradient-shadow: linear-gradient(
+    45deg,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #ff0000,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #ff0000
+  );
 }
-/* 
-/////////////////
-    CSS BODY
-////////////////
-*/
 html {
   background: rgb(1, 1, 57);
 }
+/* 
+/////////////////
+    CSS NAV
+////////////////
+*/
 nav {
   background: orangered;
   width: 100%;
@@ -43,4 +56,68 @@ nav {
 }
 .nav-subtitle {
   font-size: 2rem;
+}
+/* 
+/////////////////
+    CSS MAIN
+////////////////
+*/
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 
+ /////////////////
+    CSS ANIMATION
+ ////////////////
+*/
+.shadow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  width: 400px;
+  height: 250px;
+  background: linear-gradient(0deg, #000, #262626);
+}
+.shadow:before,
+.shadow:after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background: var(--gradient-shadow);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: animate 20s linear infinite;
+}
+
+.shadow:after {
+  filter: blur(20px);
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 300% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+.board {
+  width: min(500px, 90vw);
+  height: min(500px, 90vw);
+  margin-top: 100px;
+  background: black;
+  display: grid;
 }
