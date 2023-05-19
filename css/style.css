@@ -141,6 +141,10 @@ main {
   cursor: pointer;
   transition: 0.5s;
   background: black;
+  font-size: 10rem;
+  display: grid;
+  place-content: center;
+  color: black;
 }
 .box:hover {
   background: rgba(0, 0, 0, 0);
