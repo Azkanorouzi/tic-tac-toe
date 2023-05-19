@@ -64,8 +64,18 @@ nav {
 */
 main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+/* 
+/////////////////
+    CSS Info
+////////////////
+*/
+.info {
+  margin-top: 7rem;
+  font-size: 2rem;
 }
 /* 
  /////////////////
@@ -117,7 +127,47 @@ main {
 .board {
   width: min(500px, 90vw);
   height: min(500px, 90vw);
-  margin-top: 100px;
-  background: black;
+  margin-top: 5rem;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.box {
+  border: 2px solid white;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: 0.5s;
+  background: black;
+}
+.box:hover {
+  background: rgba(0, 0, 0, 0);
+}
+
+a:link {
+  color: white;
+  text-decoration: none;
+}
+a:visited {
+  color: white;
+}
+a:hover {
+  color: cyan;
+}
+/* Reset button */
+.reset-button {
+  width: unset;
+  height: unset;
+  margin-top: 4rem;
+  padding: 1rem;
+  background: black;
+  font-size: 3rem;
+  border: 1rem white;
+  cursor: pointer;
+  transition: 0.5s background;
+}
+.reset-button:hover {
+  background: rgb(0, 0, 0, 0);
 }

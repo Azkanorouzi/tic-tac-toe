@@ -10,20 +10,26 @@
   <body>
     <nav>
       <h1 class="nav-title">TIC TAC TOE</h1>
-      <span class="nav-subtitle">by Azka</span>
+      <span class="nav-subtitle"
+        >by <a href="https://github.com/Azkanorouzi"> Azka </a></span
+      >
     </nav>
     <main>
-      <section class="board shadow">
-        <div class="box box1"></div>
-        <div class="box box2"></div>
-        <div class="box box3"></div>
-        <div class="box box4"></div>
-        <div class="box box5"></div>
-        <div class="box box6"></div>
-        <div class="box box7"></div>
-        <div class="box box8"></div>
-        <div class="box box9"></div>
+      <section class="info">
+        <h2>PLAYER <span class="player-sign">X</span> <span>TURN</span></h2>
       </section>
+      <section class="board shadow">
+        <div class="box" data-row="0" data-col="0"></div>
+        <div class="box" data-row="0" data-col="1"></div>
+        <div class="box" data-row="0" data-col="2"></div>
+        <div class="box" data-row="1" data-col="0"></div>
+        <div class="box" data-row="1" data-col="1"></div>
+        <div class="box" data-row="1" data-col="2"></div>
+        <div class="box" data-row="2" data-col="0"></div>
+        <div class="box" data-row="2" data-col="1"></div>
+        <div class="box" data-row="2" data-col="2"></div>
+      </section>
+      <button class="shadow reset-button" type="button">RESET</button>
     </main>
   </body>
 </html>
