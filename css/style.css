@@ -18,6 +18,9 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(255, 255, 255);
 }
+body {
+  display: relative;
+}
 :root {
   font-size: 52.5%;
   --gradient-shadow: linear-gradient(
@@ -127,7 +130,7 @@ main {
 .board {
   width: min(500px, 90vw);
   height: min(500px, 90vw);
-  margin-top: 5rem;
+  margin-top: 2rem;
   background: rgba(0, 0, 0, 0);
   display: flex;
   display: grid;
@@ -174,4 +177,7 @@ a:hover {
 }
 .reset-button:hover {
   background: rgb(0, 0, 0, 0);
+}
+/* Option container */
+.options-container {
 }
