@@ -1,3 +1,4 @@
+Css: 
 *,
 /* 
 /////////////////
@@ -164,7 +165,7 @@ a:hover {
   color: cyan;
 }
 /* Reset button */
-.reset-button {
+.button {
   width: unset;
   height: unset;
   margin-top: 4rem;
@@ -175,9 +176,65 @@ a:hover {
   cursor: pointer;
   transition: 0.5s background;
 }
-.reset-button:hover {
+.button:hover {
   background: rgb(0, 0, 0, 0);
 }
 /* Option container */
 .options-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  top: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+.options {
+  background: rgba(0, 0, 0, 0.658);
+  font-size: 5rem;
+  padding: 3rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  backdrop-filter: invert(100%);
+}
+input[type='radio'] {
+  border: 0px;
+  width: 50%;
+  height: 3em;
+  accent-color: orange;
+}
+input {
+  border: none;
+  outline: none;
+}
+input:focus {
+  border: none;
+  outline: none;
+}
+.player-sign-input {
+  width: 100px;
+  height: 100px;
+  border: none;
+  font-size: 5rem;
+  text-align: center;
+}
+.number-of-rounds {
+  font-size: 2.5rem;
+}
+.rounds-number-input {
+  width: 60px;
+  font-size: 2rem;
+  padding: 10px;
+  mouse-events: none;
+}
+.radio-buttons {
+  text-align: right;
+}
+.hidden {
+  display: none;
 }

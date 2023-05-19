@@ -6,12 +6,12 @@ const elements = (function () {
 })()
 const displayController = (function () {})()
 const gameBoard = (function () {
-  const playerX = player('X')
-  const playerO = player('O')
+  const player1 = player('X')
+  const player2 = player('O')
 })()
 // Player factory function
 const player = function (sign) {
-  const sign = sign
+  const playerSign = sign
   let roundWon = 0
   // Returns true if it's the player's turn
   function isTurn(num, condition) {

@@ -8,8 +8,47 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <div class="options-container">
-      <h4>TIC TACT TOE</h4>
+    <div class="shadow options-container">
+      <div class="options">
+        <h4 class="option-title">TIC TACT TOE</h4>
+        <div class="sign-inputs">
+          <input
+            type="text"
+            class="player1-sign player-sign-input input"
+            maxlength="1"
+          />
+          VS
+          <input
+            type="text"
+            class="player2-sign-input player-sign-input input"
+            maxlength="1"
+          />
+        </div>
+        <label for="number" class="number-of-rounds">
+          Number of rounds:
+          <input
+            type="number"
+            class="rounds-number-input"
+            max="10"
+            maxlength="2"
+          />
+        </label>
+        <div class="radio-buttons">
+          <label>
+            3x3
+            <input type="radio" name="size" value="3x3" />
+          </label>
+          <label>
+            4x4
+            <input type="radio" name="size" value="4x4" />
+          </label>
+          <label>
+            5x5
+            <input type="radio" name="size" value="5x5" />
+          </label>
+        </div>
+        <button class="shadow button">GO!</button>
+      </div>
     </div>
     <nav>
       <h1 class="nav-title">TIC TAC TOE</h1>
@@ -19,7 +58,9 @@
     </nav>
     <main>
       <section class="info">
-        <h2>PLAYER <span class="player-sign">X</span> <span>TURN</span></h2>
+        <h2>
+          PLAYER <span class="player-decided-sign"></span> <span>TURN</span>
+        </h2>
         <h3 class="scores">
           <span class="player1-score">0</span>
           VS
@@ -37,7 +78,7 @@
         <div class="box" data-row="2" data-col="1"></div>
         <div class="box" data-row="2" data-col="2"></div>
       </section>
-      <button class="shadow reset-button" type="button">RESET</button>
+      <button class="shadow button" type="button">RESET</button>
     </main>
   </body>
 </html>
