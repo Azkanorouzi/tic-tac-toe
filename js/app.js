@@ -1,19 +1,83 @@
-// Stores the result of user options input
-
-const elements = (function () {
+const ELEMENTS = (function () {
   // returns a DOM element
   const _getElement = (selector) => document.querySelector(selector)
-  //   Stores main elements
-  const mainElements = {
-    BOARD: _getElement('.board'),
+  //   returns dom elements
+  const _getElements = (selector) => document.querySelectorAll(selector)
+  //   Go button
+  const GO_BTN = _getElement('.go-btn')
+  // Updates elements
+  const getOptions = () => {
+    return {
+      OPTION_CONTAINER: _getElement('.options-container'),
+      PLAYER1_SIGN_INPUT: _getElement('.player1-sign-input'),
+      PLAYER2_SIGN_INPUT: _getElement('.player2-sign-input'),
+      ROUNDS_NUMBER_INPUT: _getElement('.rounds-number-input'),
+      RADIO_BUTTON: _getElements('input[type="radio"]:checked'),
+    }
   }
-  return {}
+  //   Stores main elements
+  const MAIN_ELEMENTS = {
+    MAIN: _getElement('.main'),
+    BOARD: _getElement('.board'),
+    RESET_BUTTON: _getElement('.reset-button'),
+    CURRENT_PLAYER_SIGN: _getElement('.current-player-sign'),
+    PLAYER1_SCORE: _getElement('.player1-score'),
+    PLAYER2_SCORE: _getElement('.player2-score'),
+  }
+  return { getOptions, MAIN_ELEMENTS, GO_BTN }
 })()
-const displayController = (function () {})()
-const gameBoard = (function () {
-  const player1 = player('X')
-  const player2 = player('O')
+// Stores the options
+// Controls display of the game based on results and chosen options
+let options
+const displayController = (function () {
+  const _changeElState = function (element) {
+    element.classList.toggle('hidden')
+  }
+  const _checkFormValidity = function (...values) {
+    const V = [...values]
+    return (
+      V.every((value) => value !== '' && value !== ' ') &&
+      V[2] > 0 &&
+      V[0].toLowerCase() !== V[1].toLowerCase()
+    )
+  }
+  ELEMENTS.GO_BTN.addEventListener('click', () => {
+    // Getting the options
+    options = (function (elements) {
+      // Updates the options
+      let ops = elements.getOptions()
+      let player1Sign, player2Sign, numberOfRounds, sizeOfBoard
+      let _returnValueOf = (name) => ops[name].value
+      // Getting the values
+      player1Sign = _returnValueOf('PLAYER1_SIGN_INPUT') || false
+      player2Sign = _returnValueOf('PLAYER2_SIGN_INPUT') || false
+      numberOfRounds = _returnValueOf('ROUNDS_NUMBER_INPUT') || false
+      sizeOfBoard = _returnValueOf('RADIO_BUTTON') || false
+      return { player1Sign, player2Sign, numberOfRounds, sizeOfBoard, ops }
+    })(ELEMENTS)
+    console.log(
+      _checkFormValidity(
+        options.player1Sign,
+        options.player2Sign,
+        options.numberOfRounds,
+        options.sizeOfBoard
+      )
+    )
+    if (
+      _checkFormValidity(
+        options.player1Sign,
+        options.player2Sign,
+        options.numberOfRounds,
+        options.sizeOfBoard
+      )
+    ) {
+      _changeElState(options.ops.OPTION_CONTAINER)
+      _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
+    }
+  })
+  return { options }
 })()
+
 // Player factory function
 const player = function (sign) {
   const playerSign = sign
@@ -24,3 +88,7 @@ const player = function (sign) {
   }
   return { sign, roundWon, isTurn }
 }
+const gameBoard = (function () {
+  const player1 = player('X')
+  const player2 = player('O')
+})()

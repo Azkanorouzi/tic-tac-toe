@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="overflow-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Tic Tac Toe</title>
   </head>
-  <body>
+  <body class="overflow-hidden">
     <div class="shadow options-container">
       <div class="options">
         <h4 class="option-title">TIC TACT TOE</h4>
         <div class="sign-inputs">
           <input
             type="text"
-            class="player1-sign player-sign-input input"
+            class="player1-sign-input player-sign-input input"
             maxlength="1"
           />
           VS
@@ -27,27 +27,45 @@
         <label for="number" class="number-of-rounds">
           Number of rounds:
           <input
-            type="number"
+            type="text"
             class="rounds-number-input"
-            max="10"
-            maxlength="2"
+            pattern="\d*"
+            maxlength="1"
           />
         </label>
         <div class="radio-buttons">
           <label>
             3x3
-            <input type="radio" name="size" value="3x3" />
+            <input
+              type="radio"
+              name="size"
+              value="3x3"
+              class="radio-buttons"
+              data-name="3x3"
+            />
           </label>
           <label>
             4x4
-            <input type="radio" name="size" value="4x4" />
+            <input
+              type="radio"
+              name="size"
+              value="4x4"
+              class="radio-buttons"
+              data-name="4x4"
+            />
           </label>
           <label>
             5x5
-            <input type="radio" name="size" value="5x5" />
+            <input
+              type="radio"
+              name="size"
+              value="5x5"
+              class="radio-buttons"
+              data-name="5x5"
+            />
           </label>
         </div>
-        <button class="shadow button">GO!</button>
+        <button class="shadow button go-btn">GO!</button>
       </div>
     </div>
     <nav>
@@ -56,10 +74,10 @@
         >by <a href="https://github.com/Azkanorouzi"> Azka </a></span
       >
     </nav>
-    <main>
+    <main class="hidden main">
       <section class="info">
         <h2>
-          PLAYER <span class="player-decided-sign"></span> <span>TURN</span>
+          PLAYER <span class="current-player-sign">x</span> <span>TURN</span>
         </h2>
         <h3 class="scores">
           <span class="player1-score">0</span>
@@ -78,7 +96,8 @@
         <div class="box" data-row="2" data-col="1"></div>
         <div class="box" data-row="2" data-col="2"></div>
       </section>
-      <button class="shadow button" type="button">RESET</button>
+      <button class="shadow button reset-button" type="button">RESET</button>
     </main>
+    <script src="js/app.js"></script>
   </body>
 </html>
