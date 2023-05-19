@@ -238,3 +238,6 @@ input:focus {
 .hidden {
   display: none;
 }
+.scores {
+  text-align: center;
+}

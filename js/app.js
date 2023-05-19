@@ -1,7 +1,12 @@
+// Stores the result of user options input
+
 const elements = (function () {
   // returns a DOM element
-  _getElement = (selector) => document.querySelector(selector)
-  const BOARD = _getElement('.board')
+  const _getElement = (selector) => document.querySelector(selector)
+  //   Stores main elements
+  const mainElements = {
+    BOARD: _getElement('.board'),
+  }
   return {}
 })()
 const displayController = (function () {})()
