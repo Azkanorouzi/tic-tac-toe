@@ -66,12 +66,6 @@ const displayController = (function () {
       _changeElState(options.ops.OPTION_CONTAINER)
       _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
       const gameBoard = (function (opts) {
-        console.log(
-          opts.player1Sign,
-          opts.player2Sign,
-          opts.numberOfRounds,
-          opts.sizeOfBoard
-        )
         // Stores the crucial information about the game
         const gameInfo = {
           turns: 0,
