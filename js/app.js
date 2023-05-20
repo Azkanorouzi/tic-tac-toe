@@ -65,6 +65,9 @@ const displayController = (function () {
     ) {
       _changeElState(options.ops.OPTION_CONTAINER)
       _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
+    } else {
+      console.log(options.sizeOfBoard)
+      gameBoard()
     }
   })
   return { options }
@@ -79,15 +82,17 @@ const player = function (sign) {
   function isTurn(num, condition) {
     return condition(num)
   }
-  return { sign, roundWon, isTurn, ai }
+  return { playerSign, roundWon, isTurn, ai }
 }
-const gameBoard = (function (opts) {
+const gameBoard = function (opts) {
   const gameInfo = {
     turns: 0,
     roundsPlayed: 0,
     numberOfRounds: opts.numberOfRounds,
+    sizeOfBoard: opts.sizeOfBoard,
   }
   const players = {
     player1: player(opts.player1Sign),
+    player2: player(opts.player2Sign),
   }
-})(displayController.options)
+}
