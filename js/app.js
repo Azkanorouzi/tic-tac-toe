@@ -12,7 +12,7 @@ const ELEMENTS = (function () {
       PLAYER1_SIGN_INPUT: _getElement('.player1-sign-input'),
       PLAYER2_SIGN_INPUT: _getElement('.player2-sign-input'),
       ROUNDS_NUMBER_INPUT: _getElement('.rounds-number-input'),
-      RADIO_BUTTON: _getElements('input[type="radio"]:checked'),
+      RADIO_BUTTON: _getElement('input[type="radio"]:checked'),
     }
   }
   //   Stores main elements
@@ -65,9 +65,27 @@ const displayController = (function () {
     ) {
       _changeElState(options.ops.OPTION_CONTAINER)
       _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
-    } else {
-      console.log(options.sizeOfBoard)
-      gameBoard()
+      const gameBoard = (function (opts) {
+        console.log(
+          opts.player1Sign,
+          opts.player2Sign,
+          opts.numberOfRounds,
+          opts.sizeOfBoard
+        )
+        // Stores the crucial information about the game
+        const gameInfo = {
+          turns: 0,
+          roundsPlayed: 0,
+          numberOfRounds: opts.numberOfRounds,
+          sizeOfBoard: opts.sizeOfBoard,
+        }
+        // Stores the information about the players
+        const players = {
+          player1: player(opts.player1Sign),
+          player2: player(opts.player2Sign),
+        }
+        return { gameInfo, players }
+      })(options)
     }
   })
   return { options }
@@ -83,16 +101,4 @@ const player = function (sign) {
     return condition(num)
   }
   return { playerSign, roundWon, isTurn, ai }
-}
-const gameBoard = function (opts) {
-  const gameInfo = {
-    turns: 0,
-    roundsPlayed: 0,
-    numberOfRounds: opts.numberOfRounds,
-    sizeOfBoard: opts.sizeOfBoard,
-  }
-  const players = {
-    player1: player(opts.player1Sign),
-    player2: player(opts.player2Sign),
-  }
 }
