@@ -242,3 +242,52 @@ input:focus {
 .overflow-hidden {
   overflow-x: hidden;
 }
+/* Media queries */
+@media screen and (max-width: 500px) {
+  .options {
+    font-size: 4rem;
+    padding: 2rem;
+  }
+}
+@media screen and (max-height: 700px) {
+  .options {
+    background: rgba(0, 0, 0, 0.658);
+    font-size: 3rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    gap: 2rem;
+    backdrop-filter: invert(100%);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .player-sign-input {
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-size: 2rem;
+    text-align: center;
+  }
+  .number-of-rounds {
+    font-size: 2.5rem;
+  }
+  .rounds-number-input {
+    width: 30px;
+    font-size: 2rem;
+    padding: 4px;
+    text-align: center;
+  }
+  .button {
+    padding: 0.4rem;
+    font-size: 2rem;
+    width: 100%;
+  }
+  input[type='radio'] {
+    width: unset;
+    height: unset;
+    accent-color: black;
+  }
+  .options .radio-buttons {
+    font-size: 2rem;
+  }
+}
