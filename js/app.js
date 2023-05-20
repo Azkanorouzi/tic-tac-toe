@@ -55,14 +55,6 @@ const displayController = (function () {
       sizeOfBoard = _returnValueOf('RADIO_BUTTON') || false
       return { player1Sign, player2Sign, numberOfRounds, sizeOfBoard, ops }
     })(ELEMENTS)
-    console.log(
-      _checkFormValidity(
-        options.player1Sign,
-        options.player2Sign,
-        options.numberOfRounds,
-        options.sizeOfBoard
-      )
-    )
     if (
       _checkFormValidity(
         options.player1Sign,
@@ -82,13 +74,20 @@ const displayController = (function () {
 const player = function (sign) {
   const playerSign = sign
   let roundWon = 0
+  let ai = false
   // Returns true if it's the player's turn
   function isTurn(num, condition) {
     return condition(num)
   }
-  return { sign, roundWon, isTurn }
+  return { sign, roundWon, isTurn, ai }
 }
-const gameBoard = (function () {
-  const player1 = player('X')
-  const player2 = player('O')
-})()
+const gameBoard = (function (opts) {
+  const gameInfo = {
+    turns: 0,
+    roundsPlayed: 0,
+    numberOfRounds: opts.numberOfRounds,
+  }
+  const players = {
+    player1: player(opts.player1Sign),
+  }
+})(displayController.options)
