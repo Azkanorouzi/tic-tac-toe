@@ -30,17 +30,6 @@ const ELEMENTS = (function () {
 // Controls display of the game based on results and chosen options
 let options
 const displayController = (function () {
-  const _changeElState = function (element) {
-    element.classList.toggle('hidden')
-  }
-  const _checkFormValidity = function (...values) {
-    const V = [...values]
-    return (
-      V.every((value) => value !== '' && value !== ' ') &&
-      V[2] > 0 &&
-      V[0].toLowerCase() !== V[1].toLowerCase()
-    )
-  }
   ELEMENTS.GO_BTN.addEventListener('click', () => {
     // Getting the options
     options = (function (elements) {
@@ -80,8 +69,36 @@ const displayController = (function () {
         }
         return { gameInfo, players }
       })(options)
+      _renderGameBoard(
+        ELEMENTS.MAIN_ELEMENTS.BOARD,
+        gameBoard.gameInfo.sizeOfBoard
+      )
     }
   })
+  const _changeElState = function (element) {
+    element.classList.toggle('hidden')
+  }
+  const _renderGameBoard = function (container, size) {
+    document
+      .querySelector('.board')
+      .classList.add(`board-${size[0]}x${size[0]}`)
+    for (let i = 0; i < size[0]; i++) {
+      for (let j = 0; j < size[0]; j++) {
+        container.insertAdjacentHTML(
+          'beforeend',
+          `<div class="box" data-row="${i}" data-col="${j}"></div>`
+        )
+      }
+    }
+  }
+  const _checkFormValidity = function (...values) {
+    const V = [...values]
+    return (
+      V.every((value) => value !== '' && value !== ' ') &&
+      V[2] > 0 &&
+      V[0].toLowerCase() !== V[1].toLowerCase()
+    )
+  }
   return { options }
 })()
 
