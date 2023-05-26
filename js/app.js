@@ -57,6 +57,7 @@ const displayController = (function () {
       _loadTheGame()
       _changeElState(options.ops.OPTION_CONTAINER)
       _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
+      _listenToResetButton(ELEMENTS.MAIN_ELEMENTS.RESET_BUTTON)
       setTimeout(function () {
         _startBackgroundAnimation()
       }, 4000)
@@ -70,7 +71,9 @@ const displayController = (function () {
           winRow: opts.sizeOfBoard[0],
         }
         // creating the array representing each row and column
-        const boardArr = new Array(+gameInfo.sizeOfBoard[0]).fill([])
+        const boardArr = new Array(+gameInfo.sizeOfBoard[0])
+          .fill('')
+          .map(() => new Array(+gameInfo.sizeOfBoard[0]).fill(''))
         console.log(boardArr)
         // Stores the information about the players
         const players = [player(opts.player1Sign), player(opts.player2Sign)]
@@ -84,31 +87,34 @@ const displayController = (function () {
       document.querySelector('.current-player-sign').textContent =
         gameBoard.players[0].sign
       // Starting the game
-      const _startTheGame = (function (info, players, boardArr) {
+      const _controlTheGame = (function (info, players, boardArr) {
         let turn = 1
         let turnChange
         setTimeout(function () {
           turnChange = _startTurnChange()
         }, 4000)
         ELEMENTS.MAIN_ELEMENTS.BOARD.addEventListener('click', function (e) {
-          _resetTurnChange()
           const clickedBox = e.target
+          console.log(clickedBox)
           // Populates the board array when the box's empty
           if (e.target.textContent === '') {
             // Changing the turn
+            _resetTurnChange()
             _changeTurn()
-            _populateBoardArr(clickedBox)
+            _populateBoardArr(clickedBox, players[turn].sign)
+            _checkTheWinner(boardArr)
             _changeCurUserDomSign(
               document.querySelector('.current-player-sign'),
               players[turn === 1 ? 0 : 1].sign
             )
             clickedBox.textContent = players[turn].sign
-            console.log(boardArr)
           }
         })
+        // Populates the board array
         function _populateBoardArr(box, sign) {
-          const rowNumber = box.dataset.row
-          const colNumber = box.dataset.column
+          const rowNumber = +box.dataset.row
+          const colNumber = +box.dataset.col
+          console.log(rowNumber)
           boardArr[rowNumber][colNumber] = sign
           return 0
         }
@@ -131,6 +137,9 @@ const displayController = (function () {
         function _changeTurn() {
           turn = turn === 0 ? 1 : 0
         }
+        function _checkTheWinner(boardArr) {
+          console.log(boardArr)
+        }
       })(gameBoard.gameInfo, gameBoard.players, gameBoard.boardArr)
     }
     function _startBackgroundAnimation() {
@@ -152,6 +161,30 @@ const displayController = (function () {
   // makes a certain element hidden or visible
   const _changeElState = function (element) {
     element.classList.toggle('hidden')
+  }
+  const _listenToResetButton = function (button) {
+    button.addEventListener('click', function () {
+      // Showing the module
+      _showModule()
+      // Listening to the reset module buttons
+      document
+        .querySelector('.reset-module-container')
+        .addEventListener('click', function (e) {
+          if (e.target.dataset.cancel === 'true') _hideModule()
+          if (e.target.dataset.cancel === 'false') _resetTheGame()
+        })
+    })
+    function _showModule() {
+      document
+        .querySelector('.reset-module-container')
+        .classList.remove('hidden')
+    }
+    function _hideModule() {
+      document.querySelector('.reset-module-container').classList.add('hidden')
+    }
+    function _resetTheGame() {
+      location.reload()
+    }
   }
   // Renders the game board based on user's chosen size
   const _renderGameBoard = function (container, size) {

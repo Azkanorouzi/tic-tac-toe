@@ -315,3 +315,30 @@ input:focus {
 .counter-text {
   font-size: 15rem;
 }
+/* Reset module  */
+.reset-module-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(1, 1, 57, 0.591);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-content: center;
+}
+.module-reset {
+  background: rgba(91, 4, 40, 0.853);
+  text-align: center;
+  padding: 5rem;
+  border-radius: 2rem;
+  font-size: 3rem;
+}
+/* Reset button */
+.reset-button {
+  color: white;
+  width: 120px;
+  padding: 10px;
+  background: rgb(1, 1, 57);
+  border-radius: 6px;
+}
