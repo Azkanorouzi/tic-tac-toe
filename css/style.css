@@ -40,7 +40,7 @@ html {
   background: rgb(1, 1, 57);
 }
 .animated-background {
-  animation: changeBackground 5s linear infinite alternate;
+  animation: changeBackground 3s linear infinite alternate;
 }
 /* 
 /////////////////
@@ -298,7 +298,20 @@ input:focus {
     background: rgb(1, 1, 57);
   }
   to {
-    background: rgb(197, 53, 0);
+    background: rgb(91, 4, 40);
   }
 }
-/*  */
+.counter-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(rgb(1, 1, 57), rgb(91, 4, 40));
+  display: grid;
+  place-content: center;
+  color: white;
+}
+.counter-text {
+  font-size: 15rem;
+}

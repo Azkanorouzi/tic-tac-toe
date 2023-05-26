@@ -54,9 +54,12 @@ const displayController = (function () {
       )
     ) {
       // Making the options input hidden so that the main game is now visible
+      _loadTheGame()
       _changeElState(options.ops.OPTION_CONTAINER)
       _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
-      _startBackgroundAnimation()
+      setTimeout(function () {
+        _startBackgroundAnimation()
+      }, 4000)
       // Starting the game by creating the gameboard
       gameBoard = (function (opts) {
         // Stores the crucial information about the game
@@ -83,12 +86,17 @@ const displayController = (function () {
       // Starting the game
       const _startTheGame = (function (info, players, boardArr) {
         let turn = 1
+        let turnChange
+        setTimeout(function () {
+          turnChange = _startTurnChange()
+        }, 4000)
         ELEMENTS.MAIN_ELEMENTS.BOARD.addEventListener('click', function (e) {
+          _resetTurnChange()
           const clickedBox = e.target
           // Populates the board array when the box's empty
           if (e.target.textContent === '') {
             // Changing the turn
-            turn = turn === 0 ? 1 : 0
+            _changeTurn()
             _populateBoardArr(clickedBox)
             _changeCurUserDomSign(
               document.querySelector('.current-player-sign'),
@@ -107,10 +115,38 @@ const displayController = (function () {
         function _changeCurUserDomSign(curPlayer, sign) {
           curPlayer.textContent = sign
         }
+        function _startTurnChange() {
+          return setInterval(() => {
+            _changeTurn()
+            _changeCurUserDomSign(
+              document.querySelector('.current-player-sign'),
+              players[turn === 1 ? 0 : 1].sign
+            )
+          }, 3000)
+        }
+        function _resetTurnChange() {
+          clearInterval(turnChange)
+          turnChange = _startTurnChange()
+        }
+        function _changeTurn() {
+          turn = turn === 0 ? 1 : 0
+        }
       })(gameBoard.gameInfo, gameBoard.players, gameBoard.boardArr)
     }
     function _startBackgroundAnimation() {
       document.querySelector('html').classList.add('animated-background')
+    }
+    function _loadTheGame() {
+      const load = setInterval(function () {
+        document.querySelector('.counter-text').textContent -= 1
+        if (document.querySelector('.counter-text').textContent === '-1') {
+          clearInterval(load)
+          _hideCounter()
+        }
+      }, 1000)
+    }
+    function _hideCounter() {
+      document.querySelector('.counter-container').classList.add('hidden')
     }
   })
   // makes a certain element hidden or visible
