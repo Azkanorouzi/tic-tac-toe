@@ -30,6 +30,7 @@ const ELEMENTS = (function () {
 // Controls display of the game based on results and chosen options
 let options
 const displayController = (function () {
+  let gameBoard
   ELEMENTS.GO_BTN.addEventListener('click', () => {
     // Getting the options
     options = (function (elements) {
@@ -52,32 +53,71 @@ const displayController = (function () {
         options.sizeOfBoard
       )
     ) {
+      // Making the options input hidden so that the main game is now visible
       _changeElState(options.ops.OPTION_CONTAINER)
       _changeElState(ELEMENTS.MAIN_ELEMENTS.MAIN)
-      const gameBoard = (function (opts) {
+      _startBackgroundAnimation()
+      // Starting the game by creating the gameboard
+      gameBoard = (function (opts) {
         // Stores the crucial information about the game
         const gameInfo = {
           turns: 0,
-          roundsPlayed: 0,
           numberOfRounds: opts.numberOfRounds,
           sizeOfBoard: opts.sizeOfBoard,
+          winRow: opts.sizeOfBoard[0],
         }
+        // creating the array representing each row and column
+        const boardArr = new Array(+gameInfo.sizeOfBoard[0]).fill([])
+        console.log(boardArr)
         // Stores the information about the players
-        const players = {
-          player1: player(opts.player1Sign),
-          player2: player(opts.player2Sign),
-        }
-        return { gameInfo, players }
+        const players = [player(opts.player1Sign), player(opts.player2Sign)]
+        return { gameInfo, players, boardArr }
       })(options)
+      // Rendering the game board after user clicks on go
       _renderGameBoard(
         ELEMENTS.MAIN_ELEMENTS.BOARD,
         gameBoard.gameInfo.sizeOfBoard
       )
+      document.querySelector('.current-player-sign').textContent =
+        gameBoard.players[0].sign
+      // Starting the game
+      const _startTheGame = (function (info, players, boardArr) {
+        let turn = 1
+        ELEMENTS.MAIN_ELEMENTS.BOARD.addEventListener('click', function (e) {
+          const clickedBox = e.target
+          // Populates the board array when the box's empty
+          if (e.target.textContent === '') {
+            // Changing the turn
+            turn = turn === 0 ? 1 : 0
+            _populateBoardArr(clickedBox)
+            _changeCurUserDomSign(
+              document.querySelector('.current-player-sign'),
+              players[turn === 1 ? 0 : 1].sign
+            )
+            clickedBox.textContent = players[turn].sign
+            console.log(boardArr)
+          }
+        })
+        function _populateBoardArr(box, sign) {
+          const rowNumber = box.dataset.row
+          const colNumber = box.dataset.column
+          boardArr[rowNumber][colNumber] = sign
+          return 0
+        }
+        function _changeCurUserDomSign(curPlayer, sign) {
+          curPlayer.textContent = sign
+        }
+      })(gameBoard.gameInfo, gameBoard.players, gameBoard.boardArr)
+    }
+    function _startBackgroundAnimation() {
+      document.querySelector('html').classList.add('animated-background')
     }
   })
+  // makes a certain element hidden or visible
   const _changeElState = function (element) {
     element.classList.toggle('hidden')
   }
+  // Renders the game board based on user's chosen size
   const _renderGameBoard = function (container, size) {
     document
       .querySelector('.board')
@@ -91,6 +131,10 @@ const displayController = (function () {
       }
     }
   }
+  const _setTheCurrentPlayerSign = function (sign) {
+    document.querySelector('.current-player-sign').textContent = sign
+  }
+  // Checks if any of the fields are empty or their value is not valid and returns true or false
   const _checkFormValidity = function (...values) {
     const V = [...values]
     return (
@@ -99,17 +143,16 @@ const displayController = (function () {
       V[0].toLowerCase() !== V[1].toLowerCase()
     )
   }
-  return { options }
+  return { options, gameBoard }
 })()
-
 // Player factory function
-const player = function (sign) {
-  const playerSign = sign
+const player = function (s) {
+  const sign = s
   let roundWon = 0
   let ai = false
   // Returns true if it's the player's turn
   function isTurn(num, condition) {
     return condition(num)
   }
-  return { playerSign, roundWon, isTurn, ai }
+  return { sign, roundWon, isTurn, ai }
 }

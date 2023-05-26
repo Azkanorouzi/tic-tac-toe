@@ -69,15 +69,10 @@
         <button class="shadow button go-btn">GO!</button>
       </div>
     </div>
-    <nav>
-      <h1 class="nav-title">TIC TAC TOE</h1>
-      <span class="nav-subtitle"
-        >by <a href="https://github.com/Azkanorouzi"> Azka </a></span
-      >
-    </nav>
+
     <main class="hidden main">
       <section class="info">
-        <h2>
+        <h2 class="player-turn">
           PLAYER <span class="current-player-sign">x</span> <span>TURN</span>
         </h2>
         <h3 class="scores">
@@ -99,6 +94,12 @@
       </section>
       <button class="shadow button reset-button" type="button">RESET</button>
     </main>
+    <div class="counter-container">
+      <p class="counter-text">
+        Starts In
+        <span class="counter">3</span>
+      </p>
+    </div>
     <script src="js/app.js"></script>
   </body>
 </html>
