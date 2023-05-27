@@ -102,11 +102,11 @@ const displayController = (function () {
             _resetTurnChange()
             _changeTurn()
             _populateBoardArr(clickedBox, players[turn].sign)
-            _checkTheWinner(boardArr)
             _changeCurUserDomSign(
               document.querySelector('.current-player-sign'),
               players[turn === 1 ? 0 : 1].sign
             )
+            console.log(_checkRoundWinner(boardArr, players[turn].sign))
             clickedBox.textContent = players[turn].sign
           }
         })
@@ -137,8 +137,40 @@ const displayController = (function () {
         function _changeTurn() {
           turn = turn === 0 ? 1 : 0
         }
-        function _checkTheWinner(boardArr) {
-          console.log(boardArr)
+        // Checks round winner and returns the sign
+        function _checkRoundWinner(boardArr, playerSign) {
+          for (let i = 0; i < boardArr.length; i++) {
+            if (_checkVerticalWinner(playerSign, i)) {
+              return playerSign
+            }
+          }
+          // Checking for cross winner
+          console.log(_checkCrossWinner(playerSign), boardArr)
+          if (
+            _checkCrossWinner(playerSign) ||
+            _checkCrossWinnerReversed(playerSign) ||
+            _checkHorizontalWinner(playerSign)
+          ) {
+            return playerSign
+          }
+          // If none were true then we're going to return false indicating that there were no match
+          return false
+          function _checkHorizontalWinner(sign) {
+            return boardArr.some((e) => e.every((e) => e === sign))
+          }
+          function _checkVerticalWinner(sign, i) {
+            return boardArr.every((e) => e[i] === sign)
+          }
+          function _checkCrossWinner(sign) {
+            return boardArr.every((e, i) => e[i] === sign)
+          }
+          function _checkCrossWinnerReversed(sign) {
+            let reversedIndex = boardArr.length
+            return boardArr.every((e, i) => {
+              reversedIndex--
+              return e[reversedIndex] === sign
+            })
+          }
         }
       })(gameBoard.gameInfo, gameBoard.players, gameBoard.boardArr)
     }
