@@ -106,10 +106,74 @@ const displayController = (function () {
               document.querySelector('.current-player-sign'),
               players[turn === 1 ? 0 : 1].sign
             )
-            console.log(_checkRoundWinner(boardArr, players[turn].sign))
+            const winner = _getRoundWinner(boardArr, players[turn])
+            console.log(winner)
             clickedBox.textContent = players[turn].sign
+            // If winner won the game
+            if (winner && winner.player.roundWon === info.numberOfRounds) {
+              alert(`${winner.sign} won the game`)
+            }
+            // If winner won the round
+            if (winner && winner.player.roundWon < info.numberOfRounds) {
+              const roundWonType = _getRoundWinner(
+                boardArr,
+                players[turn]
+              ).pattern
+              ++winner.player.roundWon
+              _showWinner(roundWonType)
+              _increaseDomScore(winner, turn)
+              _resetRound()
+            }
           }
         })
+        function _showWinner(type) {
+          const board = document.querySelector('.board')
+          document
+            .querySelectorAll('.box')
+            .forEach((box) => box.classList.add('box-shown'))
+          // If player won vertically
+          if (type.vertical || type.vertical === 0) {
+            document
+              .querySelectorAll(`[data-col="${type.vertical}"]`)
+              .forEach((box) => box.classList.add('box-shown-winner'))
+          }
+          // If player won horizontally
+          if (type.horizontal || type.horizontal === 0) {
+            document
+              .querySelectorAll(`[data-row="${type.horizontal}]"`)
+              .forEach((box) => box.classList.add('box-shown-winner'))
+          }
+          // cross
+          if (type.cross || type.cross === 0) {
+            boardArr.forEach((box, i) => {
+              document
+                .querySelector(`[data-row="${i}"][data-col="${i}"]`)
+                .classList.add('box-shown')
+            })
+          }
+          // reversed cross
+          if (type.crossReverse || type.crossReverse) {
+            let reversedIndex = boardArr.length - 1
+            boardArr.forEach((box) => {
+              document
+                .querySelector(
+                  `[data-row="${reversedIndex}"][data-col="${reversedIndex}"]`
+                )
+                .classList.add('box-shown')
+              reversedIndex--
+            })
+          }
+        }
+        function _increaseDomScore(winner, turn) {
+          const winnerDomScore = document.querySelector(
+            `.player${turn + 1}-score`
+          ).textContent
+          document.querySelector(`.player${turn + 1}-score`).textContent =
+            +winnerDomScore + 1
+        }
+        function _resetRound() {
+          // Resetting the round ...
+        }
         // Populates the board array
         function _populateBoardArr(box, sign) {
           const rowNumber = +box.dataset.row
@@ -138,25 +202,38 @@ const displayController = (function () {
           turn = turn === 0 ? 1 : 0
         }
         // Checks round winner and returns the sign
-        function _checkRoundWinner(boardArr, playerSign) {
+        function _getRoundWinner(boardArr, player) {
+          const playerSign = player.sign
+          let pattern = {}
           for (let i = 0; i < boardArr.length; i++) {
             if (_checkVerticalWinner(playerSign, i)) {
-              return playerSign
+              pattern.vertical = i
+              return { player, pattern }
             }
           }
-          // Checking for cross winner
-          console.log(_checkCrossWinner(playerSign), boardArr)
-          if (
-            _checkCrossWinner(playerSign) ||
-            _checkCrossWinnerReversed(playerSign) ||
-            _checkHorizontalWinner(playerSign)
-          ) {
-            return playerSign
+          if (_checkCrossWinner(playerSign)) {
+            pattern.cross = true
+            return { player, pattern }
+          }
+          if (_checkCrossWinnerReversed(playerSign)) {
+            pattern.crossReverse = true
+            return { player, pattern }
+          }
+          if (_checkHorizontalWinner(playerSign)) {
+            let horizontalIndex = _checkHorizontalWinner(playerSign)
+            pattern.horizontal = horizontalIndex
+            return { player, pattern }
           }
           // If none were true then we're going to return false indicating that there were no match
           return false
           function _checkHorizontalWinner(sign) {
-            return boardArr.some((e) => e.every((e) => e === sign))
+            let horizontalIndex = false
+            boardArr.forEach((e, i) => {
+              if (e.every((e) => e === sign)) {
+                horizontalIndex = String(i)
+              }
+            })
+            return horizontalIndex
           }
           function _checkVerticalWinner(sign, i) {
             return boardArr.every((e) => e[i] === sign)
