@@ -139,8 +139,10 @@ const displayController = (function () {
           }
           // If player won horizontally
           if (type.horizontal || type.horizontal === 0) {
+            let index = +type.horizontal
+            console.log(document.querySelectorAll(`[data-row="${index}"]`))
             document
-              .querySelectorAll(`[data-row="${type.horizontal}]"`)
+              .querySelectorAll(`[data-row="${index}"]`)
               .forEach((box) => box.classList.add('box-shown-winner'))
           }
           // cross
@@ -148,18 +150,17 @@ const displayController = (function () {
             boardArr.forEach((box, i) => {
               document
                 .querySelector(`[data-row="${i}"][data-col="${i}"]`)
-                .classList.add('box-shown')
+                .classList.add('box-shown-winner')
             })
           }
           // reversed cross
           if (type.crossReverse || type.crossReverse) {
             let reversedIndex = boardArr.length - 1
-            boardArr.forEach((box) => {
+            console.log(reversedIndex)
+            boardArr.forEach((box, i) => {
               document
-                .querySelector(
-                  `[data-row="${reversedIndex}"][data-col="${reversedIndex}"]`
-                )
-                .classList.add('box-shown')
+                .querySelector(`[data-row="${i}"][data-col="${reversedIndex}"]`)
+                .classList.add('box-shown-winner')
               reversedIndex--
             })
           }

@@ -344,8 +344,9 @@ input:focus {
 }
 .box-shown-winner {
   background: white !important;
-  color: white black;
+  color: black !important;
 }
 .box-shown {
-  background: rgba(0, 0, 0, 0.483);
+  background: black;
+  color: white;
 }
