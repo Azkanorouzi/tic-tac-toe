@@ -92,7 +92,9 @@
         <div class="box" data-row="2" data-col="1"></div>
         <div class="box" data-row="2" data-col="2"></div> -->
       </section>
-      <button class="shadow button reset-button" type="button">RESET</button>
+      <div class="buttons-container">
+        <button class="shadow button reset-button" type="button">RESET</button>
+      </div>
     </main>
     <div class="counter-container">
       <p class="counter-text">3</p>
@@ -103,6 +105,17 @@
         <p>Are you sure you want to reset the game?</p>
         <button class="button reset-button" data-cancel="true">Cancel</button>
         <button class="button reset-button" data-cancel="false">ok</button>
+      </div>
+    </div>
+    <!-- Winner -->
+    <div class="winner-module-container hidden">
+      <div class="module-winner">
+        <p class="winner-text">
+          Player <span class="final-winner"></span> won the game!
+        </p>
+        <button class="button reset-button reset-winner" type="button">
+          RESET
+        </button>
       </div>
     </div>
     <script src="js/app.js"></script>

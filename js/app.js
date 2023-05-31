@@ -21,6 +21,7 @@
       MAIN: _getElement('.main'),
       BOARD: _getElement('.board'),
       RESET_BUTTON: _getElement('.reset-button'),
+      CLEAR_BUTTON: _getElement('.clear-button'),
       CURRENT_PLAYER_SIGN: _getElement('.current-player-sign'),
       PLAYER1_SCORE: _getElement('.player1-score'),
       PLAYER2_SCORE: _getElement('.player2-score'),
@@ -122,7 +123,18 @@
               }
               // If winner won the game
               if (winner && winner.player.roundWon == info.numberOfRounds) {
-                alert(`${winner.player.sign} won the game`)
+                setTimeout(() => {
+                  document
+                    .querySelector('.winner-module-container')
+                    .classList.remove('hidden')
+                  document.querySelector('.final-winner').textContent =
+                    winner.player.sign
+                  document
+                    .querySelector('.reset-winner')
+                    .addEventListener('click', () => {
+                      location.reload()
+                    })
+                }, 1000)
               }
             }
           })

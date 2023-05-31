@@ -350,3 +350,34 @@ input:focus {
   background: black;
   color: white;
 }
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 5rem;
+}
+.winner-module-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: grid;
+  place-content: center;
+  background: black;
+}
+.module-winner {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 4rem;
+}
+.winner-text {
+  font-size: 10rem;
+  text-shadow: 5px 5px red;
+}
+.reset-winner {
+  background: red;
+  margin-right: auto;
+  margin-left: auto;
+  transform: scale(1.3);
+}
