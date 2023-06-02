@@ -72,6 +72,7 @@
             sizeOfBoard: opts.sizeOfBoard,
             winRow: opts.sizeOfBoard[0],
           }
+          console.log(gameInfo.sizeOfBoard)
           // creating the array representing each row and column
           const boardArr = new Array(+gameInfo.sizeOfBoard[0])
             .fill('')
@@ -119,7 +120,15 @@
                 _increaseDomScore(winner, turn)
                 boardArr = boardArr.map((row) => row.map((col) => ''))
                 setTimeout(() => _resetRound(boardArr), 1000)
-                console.log(boardArr)
+              }
+              // draw
+              if (
+                [...boardArr].flat().filter((a) => a !== '').length ===
+                boardArr.length * boardArr.length
+              ) {
+                _showWinner(null)
+                boardArr = boardArr.map((row) => row.map((col) => ''))
+                setTimeout(() => _resetRound(boardArr), 1000)
               }
               // If winner won the game
               if (winner && winner.player.roundWon == info.numberOfRounds) {
@@ -144,20 +153,20 @@
               .querySelectorAll('.box')
               .forEach((box) => box.classList.add('box-shown'))
             // If player won vertically
-            if (type.vertical || type.vertical === 0) {
+            if (type?.vertical || type?.vertical === 0) {
               document
                 .querySelectorAll(`[data-col="${type.vertical}"]`)
                 .forEach((box) => box.classList.add('box-shown-winner'))
             }
             // If player won horizontally
-            if (type.horizontal || type.horizontal === 0) {
+            if (type?.horizontal || type?.horizontal === 0) {
               let index = +type.horizontal
               document
                 .querySelectorAll(`[data-row="${index}"]`)
                 .forEach((box) => box.classList.add('box-shown-winner'))
             }
             // cross
-            if (type.cross || type.cross === 0) {
+            if (type?.cross || type?.cross === 0) {
               boardArr.forEach((box, i) => {
                 document
                   .querySelector(`[data-row="${i}"][data-col="${i}"]`)
@@ -165,7 +174,7 @@
               })
             }
             // reversed cross
-            if (type.crossReverse || type.crossReverse) {
+            if (type?.crossReverse || type?.crossReverse) {
               let reversedIndex = boardArr.length - 1
               boardArr.forEach((box, i) => {
                 document

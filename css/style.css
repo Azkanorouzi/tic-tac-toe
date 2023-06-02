@@ -226,7 +226,10 @@ input:focus {
 }
 .radio-buttons {
   text-align: right;
+  display: flex;
+  flex-direction: column;
 }
+
 .hidden {
   opacity: 0;
   visibility: hidden;
