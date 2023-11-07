@@ -72,13 +72,18 @@
             sizeOfBoard: opts.sizeOfBoard,
             winRow: opts.sizeOfBoard[0],
           }
-          console.log(gameInfo.sizeOfBoard)
+          // If user selects ai mode
+          if (gameInfo.sizeOfBoard.includes('ai')) {
+            gameInfo.ai = true
+          }
           // creating the array representing each row and column
           const boardArr = new Array(+gameInfo.sizeOfBoard[0])
             .fill('')
             .map(() => new Array(+gameInfo.sizeOfBoard[0]).fill(''))
           // Stores the information about the players
           const players = [player(opts.player1Sign), player(opts.player2Sign)]
+          // Setting ai to true if it's ai
+          if (gameInfo.ai) players[1].ai = true
           return { gameInfo, players, boardArr }
         })(options)
         // Rendering the game board after user clicks on go
